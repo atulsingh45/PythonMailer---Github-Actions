@@ -5,7 +5,7 @@ import os
 
 def send_mail(workflow_name, repo_name, workflow_run_id):
     # Email details
-    sender_email = os.get('SENDER_EMAIL')
+    sender_email = os.getenv('SENDER_EMAIL')
     sender_password = os.getenv('SENDER_PASSWORD')
     receiver_email = os.getenv('RECEIVER_EMAIL')
 
@@ -21,7 +21,7 @@ def send_mail(workflow_name, repo_name, workflow_run_id):
 
     try:
         server = smtplib.SMTP('smtp.gmail.com', 587)
-        server.startls()
+        server.starttls()
         server.log(sender_email, sender_password)
         text = msg.as_string()
         server.sendmail(sender_email, receiver_email, text)
